@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Mail, Lock, User, UserPlus, Eye, EyeOff, AlertCircle } from 'lucide-react';
@@ -13,7 +13,11 @@ const SignupForm = () => {
   const [showPass, setShowPass] = useState(false);
   const [state, setState] = useState({ loading: false, error: null });
 
-  const presenter = new AuthPresenter(setState);
+  const presenterRef = useRef(null);
+  if (!presenterRef.current) {
+    presenterRef.current = new AuthPresenter(setState);
+  }
+  const presenter = presenterRef.current;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
