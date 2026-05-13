@@ -1,0 +1,168 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================
+   GLOBAL STYLES
+   ============================================ */
+:root {
+  --color-primary: #06b6d4;
+  --color-accent: #8b5cf6;
+  --color-dark-bg: #0a0a1a;
+  --color-dark-surface: #111128;
+  --color-dark-card: #16163a;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: var(--color-dark-bg);
+  color: #e2e8f0;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0a1a;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #06b6d4, #8b5cf6);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #22d3ee, #a78bfa);
+}
+
+/* ============================================
+   GLASSMORPHISM UTILITIES
+   ============================================ */
+@layer components {
+  .glass {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10 shadow-lg;
+  }
+  .glass-strong {
+    @apply bg-white/10 backdrop-blur-2xl border border-white/15 shadow-xl;
+  }
+  .glass-card {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl shadow-lg
+           transition-all duration-300 hover:bg-white/10 hover:border-white/20
+           hover:shadow-cyan-500/10 hover:shadow-2xl;
+  }
+  .glass-input {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl
+           px-4 py-3 text-white placeholder-gray-400
+           focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/50
+           transition-all duration-300;
+  }
+  .glass-button {
+    @apply bg-gradient-to-r from-cyan-500 to-purple-600 
+           text-white font-semibold px-6 py-3 rounded-xl
+           hover:from-cyan-400 hover:to-purple-500
+           transform hover:scale-105 active:scale-95
+           transition-all duration-300 shadow-lg
+           hover:shadow-cyan-500/25;
+  }
+  .glass-button-outline {
+    @apply bg-transparent border border-cyan-500/50 text-cyan-400
+           font-semibold px-6 py-3 rounded-xl
+           hover:bg-cyan-500/10 hover:border-cyan-400
+           transform hover:scale-105 active:scale-95
+           transition-all duration-300;
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    @apply bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 
+           bg-clip-text text-transparent;
+  }
+  .gradient-text-alt {
+    @apply bg-gradient-to-r from-cyan-300 to-purple-400 
+           bg-clip-text text-transparent;
+  }
+
+  /* Background patterns */
+  .bg-grid {
+    background-image: 
+      linear-gradient(rgba(6, 182, 212, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(6, 182, 212, 0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .bg-dots {
+    background-image: radial-gradient(rgba(6, 182, 212, 0.1) 1px, transparent 1px);
+    background-size: 30px 30px;
+  }
+
+  /* Glow effects */
+  .glow-cyan {
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.15), 0 0 60px rgba(6, 182, 212, 0.05);
+  }
+  .glow-purple {
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.15), 0 0 60px rgba(139, 92, 246, 0.05);
+  }
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient-shift 8s ease infinite;
+}
+
+/* Floating orbs background */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.15;
+  animation: float 8s ease-in-out infinite;
+}
+.orb-cyan {
+  background: #06b6d4;
+}
+.orb-purple {
+  background: #8b5cf6;
+}
+.orb-pink {
+  background: #ec4899;
+}
+
+/* Loading skeleton shimmer */
+.skeleton {
+  background: linear-gradient(90deg, rgba(255,255,255,0.05) 25%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Page transition */
+.page-enter {
+  opacity: 0;
+  transform: translateY(10px);
+}
+.page-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
